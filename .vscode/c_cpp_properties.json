@@ -134,9 +134,8 @@
             },
             "defines": [
                 "PLATFORMIO=60116",
-                "STM32G0",
                 "STM32G0xx",
-                "STM32G031xx",
+                "STM32G030xx",
                 "USE_HAL_DRIVER",
                 "F_CPU=64000000L",
                 ""
