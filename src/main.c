@@ -8,14 +8,9 @@ static void MX_I2C2_Init(void);
 
 int main(void)
 {
-  /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
-  HAL_Init();
-
-  /* Configure the system clock */
-  SystemClock_Config();
-
-  /* Initialize all configured peripherals */
-  MX_GPIO_Init();
+  HAL_Init();           //Reset of all peripherals, Initializes the Flash interface and the Systick.
+  SystemClock_Config(); //Configure the system clock
+  MX_GPIO_Init();       //Initialize all configured peripherals
   MX_I2C2_Init();
 
   //Turn display on and set 4 (middle) brightness level
