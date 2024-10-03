@@ -8,7 +8,6 @@ static void MX_I2C2_Init(void);
 
 int main(void)
 {
-
   /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
   HAL_Init();
 
@@ -19,20 +18,23 @@ int main(void)
   MX_GPIO_Init();
   MX_I2C2_Init();
 
-  uint8_t dat = 0b00100001;
-  HAL_I2C_Master_Transmit(&hi2c2, 0x24 << 1, &dat, sizeof(dat), HAL_MAX_DELAY);
+  //Turn display on and set 4 (middle) brightness level
+  uint8_t cfgDisplay = 0b00100001;
+  HAL_I2C_Master_Transmit(&hi2c2, 0x24 << 1, &cfgDisplay, sizeof(cfgDisplay), HAL_MAX_DELAY);
   while (1)
   {
-    uint8_t data[1] = {0b00110110};
-    uint8_t bright[1] = {0b01000001};
-    HAL_I2C_Master_Transmit(&hi2c2, 0x34 << 1, data, sizeof(data), HAL_MAX_DELAY);
-    HAL_I2C_Master_Transmit(&hi2c2, 0x35 << 1, data, sizeof(data), HAL_MAX_DELAY);
-    HAL_I2C_Master_Transmit(&hi2c2, 0x36 << 1, data, sizeof(data), HAL_MAX_DELAY);
+    //Set some random symbol #1
+    uint8_t symbol = 0b01100011;
+    HAL_I2C_Master_Transmit(&hi2c2, 0x34 << 1, &symbol, sizeof(symbol), HAL_MAX_DELAY);
+    HAL_I2C_Master_Transmit(&hi2c2, 0x35 << 1, &symbol, sizeof(symbol), HAL_MAX_DELAY);
+    HAL_I2C_Master_Transmit(&hi2c2, 0x36 << 1, &symbol, sizeof(symbol), HAL_MAX_DELAY);
     HAL_Delay(500);
-    data[0] = 0b00101010;
-    HAL_I2C_Master_Transmit(&hi2c2, 0x34 << 1, data, sizeof(data), HAL_MAX_DELAY);
-    HAL_I2C_Master_Transmit(&hi2c2, 0x35 << 1, data, sizeof(data), HAL_MAX_DELAY);
-    HAL_I2C_Master_Transmit(&hi2c2, 0x36 << 1, data, sizeof(data), HAL_MAX_DELAY);
+    
+    //Set some random symbol #2
+    symbol = 0b11111111;
+    HAL_I2C_Master_Transmit(&hi2c2, 0x34 << 1, &symbol, sizeof(symbol), HAL_MAX_DELAY);
+    HAL_I2C_Master_Transmit(&hi2c2, 0x35 << 1, &symbol, sizeof(symbol), HAL_MAX_DELAY);
+    HAL_I2C_Master_Transmit(&hi2c2, 0x36 << 1, &symbol, sizeof(symbol), HAL_MAX_DELAY);
     HAL_Delay(500);
   }
 }
